@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RESIDENCE КМВ | Управление квартирами посуточно и клининг в Пятигорске и Железноводске</title>
+    <meta name="description" content="Профессиональное управление квартирами для посуточной аренды на Кавказских Минеральных Водах. Клининг, бронирование, заселение 24/7. Пятигорск, Железноводск, Кисловодск.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6.4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            50: '#F0F7F6',
+                            100: '#DCECE9',
+                            500: '#0F766E',
+                            700: '#115E59',
+                            900: '#134E4A',
+                            950: '#0B3B38',
+                        },
+                        cream: {
+                            50: '#FDFCF9',
+                            100: '#FAF7F2',
+                            200: '#F3EDE0',
+                            300: '#E8DFC9',
+                        },
+                        gold: {
+                            300: '#E8C9A0',
+                            500: '#D4A574',
+                            600: '#B8895A',
+                            700: '#8B6341',
+                        },
+                        charcoal: {
+                            700: '#292524',
+                            800: '#1C1917',
+                            900: '#0C0A09',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Cormorant Garamond', 'serif'],
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 3s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #1C1917;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Градиентный текст */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #D4A574 0%, #B8895A 50%, #8B6341 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-forest {
+            background: linear-gradient(135deg, #134E4A 0%, #0F766E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Reveal анимация */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: #134E4A;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader-key {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: keyRotate 2s ease-in-out infinite;
+        }
+        .loader-key::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #D4A574;
+            border-radius: 50%;
+            transform: translate(-100%, -50%);
+        }
+        .loader-key::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 3px;
+            background: #D4A574;
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        @keyframes keyRotate {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+        .loader-dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 30px;
+        }
+        .loader-dots span {
+            width: 6px;
+            height: 6px;
+            background: #D4A574;
+            border-radius: 50%;
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Glassmorphism */
+        .glass-cream {
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 165, 116, 0.15);
+        }
+        .glass-dark {
+            background: rgba(19, 78, 74, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Карточка квартиры */
+        .apartment-card {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .apartment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -15px rgba(19, 78, 74, 0.2);
+        }
+        .apartment-card:hover .apartment-image {
+            transform: scale(1.08);
+        }
+        .apartment-image {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF7F2; }
+        ::-webkit-scrollbar-thumb { background: #0F766E; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4A574; }
+
+        /* Service card */
+        .service-card {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.03) 0%, rgba(212, 165, 116, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 165, 116, 0.4);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: #134E4A;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            background: #0B3B38;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(19, 78, 74, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #D4A574 0%, #B8895A 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(212, 165, 116, 0.5);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #134E4A;
+            color: #134E4A;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: #134E4A;
+            color: white;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 1rem;
+            background: rgba(15, 118, 110, 0.08);
+            color: #0F766E;
+            border: 1px solid rgba(15, 118, 110, 0.15);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Tabs */
+        .tab-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .tab-btn.active {
+            background: #134E4A;
+            color: white;
+        }
+        .tab-btn:not(.active):hover {
+            background: rgba(15, 118, 110, 0.08);
+            color: #0F766E;
+        }
+
+        /* Pricing card */
+        .pricing-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(19, 78, 74, 0.2);
+        }
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #134E4A 0%, #0B3B38 100%);
+            color: white;
+            transform: scale(1.03);
+        }
+        .pricing-card.featured:hover {
+            transform: scale(1.03) translateY(-8px);
+        }
+
+        /* Decorative divider */
+        .ornament-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .ornament-divider::before,
+        .ornament-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #D4A574, transparent);
+        }
+
+        /* Stat counter */
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 3.5rem;
+            line-height: 1;
+            color: #134E4A;
+        }
+
+        /* Quote mark */
+        .quote-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            line-height: 0.5;
+            color: #D4A574;
+            opacity: 0.3;
+        }
+
+        /* FAQ */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-content.open {
+            max-height: 500px;
+        }
+
+        /* Stagger delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+
+        /* Mobile bottom bar */
+        .mobile-bottom-bar {
+            box-shadow: 0 -10px 40px rgba(19, 78, 74, 0.1);
+        }
+
+        /* Decorative blob */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Image overlay */
+        .image-overlay {
+            position: relative;
+        }
+        .image-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 59, 56, 0.8) 0%, transparent 60%);
+        }
+
+        /* Star rating */
+        .star-rating {
+            color: #D4A574;
+        }
+
+        /* Decorative corner */
+        .corner-decor {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #D4A574;
+        }
+        .corner-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .corner-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        /* Hover lift */
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker {
+            display: inline-block;
+            animation: ticker 40s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Cleaning service card */
+        .clean-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .clean-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, #D4A574, #0F766E);
+            transition: height 0.4s ease;
+        }
+        .clean-card:hover::before {
+            height: 100%;
+        }
+        .clean-card:hover {
+            transform: translateX(5px);
+            background: white;
+            box-shadow: 0 15px 35px -10px rgba(19, 78, 74, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-forest-500 selection:text-white">
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader-key"></div>
+        <h1 class="font-display text-4xl text-cream-100 tracking-[0.3em] mt-8">RESIDENCE</h1>
+        <p class="text-gold-500 text-xs tracking-[0.4em] mt-2 uppercase">Кавказские Минеральные Воды</p>
+        <div class="loader-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-cream-100/90 backdrop-blur-md" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-11 h-11 bg-forest-900 rounded-full flex items-center justify-center overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-key text-gold-500 text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display text-2xl text-forest-900 tracking-wide leading-none">RESIDENCE</span>
+                        <span class="text-[10px] text-gold-600 tracking-[0.3em] uppercase mt-0.5">КМВ • Управление</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#services" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Услуги</a>
+                    <a href="#apartments" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Квартиры</a>
+                    <a href="#cleaning" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Клининг</a>
+                    <a href="#pricing" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Тарифы</a>
+                    <a href="#how" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Как работаем</a>
+                    <a href="#contacts" class="text-sm font-semibold text-charcoal-800 hover:text-forest-500 transition-colors">Контакты</a>
+                </div>
+
+                <!-- CTA -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:+79991234567" class="hidden xl:flex items-center gap-2 text-forest-900 hover:text-forest-500 transition-colors">
+                        <i class="fa-solid fa-phone text-gold-500"></i>
+                        <span class="font-semibold">+7 (999) 123-45-67</span>
+                    </a>
+                    <a href="#signup" class="btn-primary font-semibold py-2.5 px-5 rounded-full text-sm hidden md:inline-flex items-center gap-2">
+                        Оставить заявку
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <button class="lg:hidden text-forest-900 text-2xl p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="hidden lg:hidden bg-cream-100 border-t border-forest-100 absolute w-full shadow-lg" id="mobile-menu">
+            <div class="px-6 py-6 space-y-4 flex flex-col">
+                <a href="#services" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Услуги</a>
+                <a href="#apartments" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Квартиры</a>
+                <a href="#cleaning" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Клининг</a>
+                <a href="#pricing" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Тарифы</a>
+                <a href="#how" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Как работаем</a>
+                <a href="#contacts" class="text-base font-semibold text-charcoal-800 hover:text-forest-500" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Контакты</a>
+                <a href="tel:+79991234567" class="mt-2 w-full btn-primary font-semibold py-3.5 rounded-full text-center">
+                    <i class="fa-solid fa-phone mr-2"></i> Позвонить
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-cream-100">
+        <!-- Decorative blobs -->
+        <div class="blob w-96 h-96 bg-forest-500 top-20 -left-20"></div>
+        <div class="blob w-96 h-96 bg-gold-500 bottom-20 -right-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left content -->
+                <div class="reveal active">
+                    <div class="badge mb-6">
+                        <span class="w-2 h-2 rounded-full bg-forest-500 animate-pulse"></span>
+                        Принимаем объекты в управление
+                    </div>
+
+                    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-forest-900 leading-[1.05] mb-6 tracking-tight">
+                        Ваш объект — <br>
+                        <span class="text-gradient-gold italic">наша забота</span>
+                    </h1>
+                    
+                    <p class="text-charcoal-700 text-lg md:text-xl mb-8 max-w-xl leading-relaxed font-light">
+                        Профессиональное управление квартирами для посуточной аренды на <span class="font-semibold text-forest-900">Кавказских Минеральных Водах</span>. Клининг, бронирование, заселение гостей 24/7.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                        <a href="#signup" class="btn-primary font-semibold py-4 px-8 rounded-full text-base flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-key"></i>
+                            <span>Сдать в управление</span>
+                        </a>
+                        <a href="#apartments" class="btn-outline font-semibold py-4 px-8 rounded-full text-base flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-bed"></i>
+                            <span>Забронировать</span>
+                        </a>
+                    </div>
+
+                    <!-- Mini stats -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-forest-100">
+                        <div>
+                            <div class="stat-number">87</div>
+                            <div class="text-charcoal-700 text-xs uppercase tracking-wider mt-1">Объектов</div>
+                        </div>
+                        <div>
+                            <div class="stat-number">4.9</div>
+                            <div class="text-charcoal-700 text-xs uppercase tracking-wider mt-1 flex items-center gap-1">
+                                <i class="fa-solid fa-star text-gold-500 text-[10px]"></i> Рейтинг
+                            </div>
+                        </div>
+                        <div>
+                            <div class="stat-number">98%</div>
+                            <div class="text-charcoal-700 text-xs uppercase tracking-wider mt-1">Загрузка</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side - visual -->
+                <div class="relative reveal active stagger-2">
+                    <div class="relative">
+                        <!-- Main image -->
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop" alt="Премиум интерьер" class="w-full h-[500px] object-cover">
+                            
+                            <!-- Corner decorations -->
+                            <div class="corner-decor corner-tl"></div>
+                            <div class="corner-decor corner-br"></div>
+
+                            <!-- Overlay card -->
+                            <div class="absolute bottom-6 left-6 right-6 glass-cream rounded-2xl p-5 flex items-center gap-4">
+                                <div class="w-14 h-14 bg-forest-900 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-shield-halved text-gold-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-display text-lg text-forest-900 font-semibold">Страховка объекта</div>
+                                    <div class="text-charcoal-700 text-xs">Каждый объект застрахован на 5 млн ₽</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating badges -->
+                        <div class="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-4 animate-float hidden md:block">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-gold-500/10 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-broom text-gold-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="font-display text-lg text-forest-900 font-semibold">Клининг</div>
+                                    <div class="text-xs text-charcoal-700">после каждого гостя</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 animate-float hidden md:block" style="animation-delay: 1s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-forest-500/10 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-chart-line text-forest-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="font-display text-lg text-forest-900 font-semibold">+40%</div>
+                                    <div class="text-xs text-charcoal-700">к вашему доходу</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="bg-forest-900 py-4 overflow-hidden">
+        <div class="ticker-wrap">
+            <div class="ticker font-display text-cream-100 font-medium tracking-widest text-sm md:text-base">
+                <span class="mx-8">✦ ПОСУТОЧНАЯ АРЕНДА</span>
+                <span class="mx-8">✦ КЛИНИНГ</span>
+                <span class="mx-8">✦ УПРАВЛЕНИЕ ОБЪЕКТАМИ</span>
+                <span class="mx-8">✦ ПЯТИГОРСК</span>
+                <span class="mx-8">✦ ЖЕЛЕЗНОВОДСК</span>
+                <span class="mx-8">✦ КИСЛОВОДСК</span>
+                <span class="mx-8">✦ ЕСЕНТУКИ</span>
+                <span class="mx-8">✦ ПОСУТОЧНАЯ АРЕНДА</span>
+                <span class="mx-8">✦ КЛИНИНГ</span>
+                <span class="mx-8">✦ УПРАВЛЕНИЕ ОБЪЕКТАМИ</span>
+                <span class="mx-8">✦ ПЯТИГОРСК</span>
+                <span class="mx-8">✦ ЖЕЛЕЗНОВОДСК</span>
+                <span class="mx-8">✦ КИСЛОВОДСК</span>
+                <span class="mx-8">✦ ЕСЕНТУКИ</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-cream-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">Наши услуги</div>
+                <h2 class="font-display text-4xl md:text-6xl text-forest-900 mb-4 tracking-tight">Полный цикл <span class="italic text-gradient-gold">заботы</span></h2>
+                <p class="text-charcoal-700 text-lg max-w-2xl mx-auto font-light">От поиска гостей до идеальной чистоты — мы берём на себя все задачи, превращая вашу квартиру в прибыльный актив</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal">
+                    <div class="w-16 h-16 bg-forest-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-calendar-check text-forest-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Бронирование</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Размещение на всех популярных площадках: Avito, Суточно.ру, Островок, Яндекс.Путешествия. Максимизация загрузки и дохода.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Управление календарём</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Динамическое ценообразование</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Работа с отзывами</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal stagger-1">
+                    <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-broom text-gold-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Профессиональный клининг</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Идеальная чистота после каждого гостя. Профессиональная химия, стерилизация санузлов, замена текстиля.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Экспресс-уборка за 2 часа</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Генеральная уборка</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Химчистка мебели</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal stagger-2">
+                    <div class="w-16 h-16 bg-forest-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-key text-forest-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Заселение гостей</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Встреча 24/7, передача ключей, помощь с багажом. Welcome-набор с местными деликатесами и информацией о курорте.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Умные замки (опция)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Welcome-пакет</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Поддержка 24/7</li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal">
+                    <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-camera text-gold-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Фотосессия объекта</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Профессиональная съёмка интерьера, хоум-стейджинг, создание привлекательного объявления, которое продаёт.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> 30+ профессиональных фото</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> 3D-тур (опция)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Видео-обзор</li>
+                    </ul>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal stagger-1">
+                    <div class="w-16 h-16 bg-forest-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-wrench text-forest-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Техобслуживание</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Мелкий ремонт, замена расходников, проверка техники. Ваш объект всегда в идеальном состоянии.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Сантехника и электрика</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Бытовая техника</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Экстренные вызовы</li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-forest-100 reveal stagger-2">
+                    <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-file-invoice-dollar text-gold-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-forest-900 mb-3">Финансовая отчётность</h3>
+                    <p class="text-charcoal-700 text-sm leading-relaxed mb-6">Прозрачные отчёты каждый месяц. Помощь с регистрацией самозанятости, уплатой налогов.</p>
+                    <ul class="space-y-2 text-sm text-charcoal-700">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Ежемесячный отчёт</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Помощь с налогами</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500 text-xs"></i> Выплаты на карту</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="py-24 bg-forest-900 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-forest-500/20 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto bg-white/10 text-gold-300 border-gold-500/30">Почему мы</div>
+                <h2 class="font-display text-4xl md:text-6xl text-cream-100 mb-4 tracking-tight">Ваш доход — <span class="italic text-gradient-gold">наш приоритет</span></h2>
+                <p class="text-cream-200 text-lg max-w-2xl mx-auto font-light">5 лет на рынке КМВ. Мы знаем, как превратить квартиру в стабильный источник пассивного дохода</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center reveal">
+                    <div class="w-20 h-20 mx-auto bg-white/5 border border-gold-500/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-hand-holding-dollar text-gold-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-cream-100 mb-2">+40% к доходу</h3>
+                    <p class="text-cream-200 text-sm font-light">В среднем наши объекты приносят на 40% больше, чем при самостоятельной сдаче</p>
+                </div>
+
+                <div class="text-center reveal stagger-1">
+                    <div class="w-20 h-20 mx-auto bg-white/5 border border-gold-500/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-shield-check text-gold-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-cream-100 mb-2">Страховка</h3>
+                    <p class="text-cream-200 text-sm font-light">Каждый объект застрахован. Компенсация ущерба от гостей в течение 48 часов</p>
+                </div>
+
+                <div class="text-center reveal stagger-2">
+                    <div class="w-20 h-20 mx-auto bg-white/5 border border-gold-500/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-clock text-gold-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-cream-100 mb-2">24/7 поддержка</h3>
+                    <p class="text-cream-200 text-sm font-light">Круглосуточная связь с гостями и собственниками. Решение любых вопросов</p>
+                </div>
+
+                <div class="text-center reveal stagger-3">
+                    <div class="w-20 h-20 mx-auto bg-white/5 border border-gold-500/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-chart-pie text-gold-500 text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-cream-100 mb-2">Прозрачность</h3>
+                    <p class="text-cream-200 text-sm font-light">Личный кабинет с аналитикой, отчётами и выплатами в реальном времени</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apartments Section -->
+    <section id="apartments" class="py-24 bg-cream-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">Наши объекты</div>
+                <h2 class="font-display text-4xl md:text-6xl text-forest-900 mb-4 tracking-tight">Квартиры <span class="italic text-gradient-gold">для отдыха</span></h2>
+                <p class="text-charcoal-700 text-lg max-w-2xl mx-auto font-light">Лучшие объекты на Кавказских Минеральных Водах. От уютных студий до премиум-апартаментов</p>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+                <button class="tab-btn active bg-forest-900 text-white font-semibold py-2.5 px-6 rounded-full text-sm" onclick="filterApt('all', this)">Все объекты</button>
+                <button class="tab-btn bg-white text-charcoal-800 font-semibold py-2.5 px-6 rounded-full text-sm border border-forest-100" onclick="filterApt('pyatigorsk', this)">Пятигорск</button>
+                <button class="tab-btn bg-white text-charcoal-800 font-semibold py-2.5 px-6 rounded-full text-sm border border-forest-100" onclick="filterApt('zheleznovodsk', this)">Железноводск</button>
+                <button class="tab-btn bg-white text-charcoal-800 font-semibold py-2.5 px-6 rounded-full text-sm border border-forest-100" onclick="filterApt('kislovodsk', this)">Кисловодск</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Apartment 1 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal" data-city="pyatigorsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">4.9</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-forest-900 text-cream-100 text-xs font-bold px-3 py-1 rounded-full">Superhost</div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Пятигорск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Студия у Провала</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">3 500 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Уютная студия в 5 минутах от парка. Панорамные окна, дизайнерский ремонт.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 2 гостя</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 1 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 32 м²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 2 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal stagger-1" data-city="zheleznovodsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">5.0</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">Premium</div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Железноводск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Апартаменты с видом на Бештау</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">5 800 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Просторная 1-комнатная с панорамным видом на горы. Камин, джакузи, терраса.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 4 гостя</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 1 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 58 м²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 3 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal stagger-2" data-city="kislovodsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">4.8</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Кисловодск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Двухкомнатная у Курпарка</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">4 200 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Классическая 2-комнатная в историческом центре. 3 минуты до Курортного парка.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 5 гостей</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 1 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 48 м²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 4 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal" data-city="pyatigorsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">4.9</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-forest-900 text-cream-100 text-xs font-bold px-3 py-1 rounded-full">Superhost</div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Пятигорск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Лофт на Машуке</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">4 800 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Стильный лофт с высокими потолками. Вид на гору Машук, парковка, консьерж.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 4 гостя</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 1 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 52 м²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 5 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal stagger-1" data-city="zheleznovodsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">4.7</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Железноводск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Уютная однушка у Славяновского</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">2 900 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Светлая 1-комнатная в тихом районе. 7 минут до источника. Идеально для пары.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 3 гостя</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 1 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 36 м²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 6 -->
+                <div class="apartment-card bg-white rounded-3xl overflow-hidden shadow-sm reveal stagger-2" data-city="kislovodsk">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" alt="Квартира" class="apartment-image w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                            <i class="fa-solid fa-star text-gold-500 text-xs"></i>
+                            <span class="text-forest-900 text-xs font-bold">5.0</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">Premium</div>
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-forest-900">
+                            <i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Кисловодск
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-display text-xl text-forest-900">Пентхаус с террасой</h3>
+                            <div class="text-right">
+                                <div class="font-display text-2xl text-forest-900 font-bold">8 500 ₽</div>
+                                <div class="text-charcoal-700 text-xs">за сутки</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal-700 text-sm mb-4 font-light">Эксклюзивный пентхаус с панорамной террасой. Сауна, камин, вид на Эльбрус.</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-forest-100 text-xs text-charcoal-700">
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bed text-gold-500"></i> 6 гостей</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-bath text-gold-500"></i> 2 с/у</div>
+                            <div class="flex items-center gap-1"><i class="fa-solid fa-ruler-combined text-gold-500"></i> 95 м²</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 reveal">
+                <a href="#signup" class="btn-outline font-semibold py-3 px-8 rounded-full inline-flex items-center gap-2">
+                    Посмотреть все 87 объектов
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cleaning Section -->
+    <section id="cleaning" class="py-24 bg-cream-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="ornament-divider mb-6 justify-start">
+                        <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                    </div>
+                    <div class="badge mb-4">Клининг</div>
+                    <h2 class="font-display text-4xl md:text-5xl text-forest-900 mb-6 tracking-tight">Идеальная чистота — <span class="italic text-gradient-gold">наш стандарт</span></h2>
+                    <p class="text-charcoal-700 text-lg mb-8 font-light leading-relaxed">
+                        Профессиональный клининг для квартир посуточной аренды и не только. Работаем по стандартам 5-звёздочных отелей с использованием экологичной химии.
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="clean-card bg-white rounded-2xl p-5 border border-forest-100">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-forest-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-spray-can-sparkles text-forest-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h4 class="font-display text-lg text-forest-900 font-semibold">Экспресс-уборка</h4>
+                                        <span class="font-display text-lg text-gold-600 font-bold">от 1 500 ₽</span>
+                                    </div>
+                                    <p class="text-charcoal-700 text-sm font-light">Подготовка квартиры к заселению за 2 часа. Пыль, полы, санузел, смена белья.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clean-card bg-white rounded-2xl p-5 border border-forest-100">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-broom text-gold-600 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h4 class="font-display text-lg text-forest-900 font-semibold">Генеральная уборка</h4>
+                                        <span class="font-display text-lg text-gold-600 font-bold">от 3 500 ₽</span>
+                                    </div>
+                                    <p class="text-charcoal-700 text-sm font-light">Глубокая уборка всех поверхностей, окон, бытовой техники. Идеально после долгого простоя.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clean-card bg-white rounded-2xl p-5 border border-forest-100">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-forest-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-couch text-forest-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h4 class="font-display text-lg text-forest-900 font-semibold">Химчистка мебели</h4>
+                                        <span class="font-display text-lg text-gold-600 font-bold">от 2 000 ₽</span>
+                                    </div>
+                                    <p class="text-charcoal-700 text-sm font-light">Профессиональная чистка диванов, матрасов, ковров. Выведение пятен, дезинфекция.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clean-card bg-white rounded-2xl p-5 border border-forest-100">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-shirt text-gold-600 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h4 class="font-display text-lg text-forest-900 font-semibold">Стирка и глажка</h4>
+                                        <span class="font-display text-lg text-gold-600 font-bold">от 500 ₽</span>
+                                    </div>
+                                    <p class="text-charcoal-700 text-sm font-light">Стирка, глажка и замена текстиля. Гипоаллергенные средства, ароматизация.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#signup" class="btn-primary font-semibold py-3.5 px-8 rounded-full inline-flex items-center gap-2">
+                        <i class="fa-solid fa-broom"></i>
+                        Заказать клининг
+                    </a>
+                </div>
+
+                <div class="relative reveal stagger-2">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1000&auto=format&fit=crop" alt="Клининг" class="w-full h-[600px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Stats overlay -->
+                        <div class="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3">
+                            <div class="glass-cream rounded-2xl p-4 text-center">
+                                <div class="font-display text-2xl text-forest-900 font-bold">2ч</div>
+                                <div class="text-charcoal-700 text-[10px] uppercase tracking-wider">Экспресс</div>
+                            </div>
+                            <div class="glass-cream rounded-2xl p-4 text-center">
+                                <div class="font-display text-2xl text-forest-900 font-bold">100%</div>
+                                <div class="text-charcoal-700 text-[10px] uppercase tracking-wider">Эко-химия</div>
+                            </div>
+                            <div class="glass-cream rounded-2xl p-4 text-center">
+                                <div class="font-display text-2xl text-forest-900 font-bold">24/7</div>
+                                <div class="text-charcoal-700 text-[10px] uppercase tracking-wider">Выезд</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating badge -->
+                    <div class="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-5 animate-float hidden md:block">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 bg-gold-500 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-award text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-display text-lg text-forest-900 font-semibold">Сертификат</div>
+                                <div class="text-xs text-charcoal-700">Профессиональный клининг</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-cream-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">Тарифы управления</div>
+                <h2 class="font-display text-4xl md:text-6xl text-forest-900 mb-4 tracking-tight">Гибкие условия <span class="italic text-gradient-gold">для каждого</span></h2>
+                <p class="text-charcoal-700 text-lg max-w-2xl mx-auto font-light">Выберите тариф под ваши задачи. Без скрытых платежей. Комиссия только с фактического дохода.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Price 1 -->
+                <div class="pricing-card bg-white border border-forest-100 rounded-3xl p-8 reveal">
+                    <div class="mb-6">
+                        <div class="text-forest-500 text-xs uppercase tracking-widest font-bold mb-2">Базовый</div>
+                        <h3 class="font-display text-3xl text-forest-900 mb-2">Старт</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display text-5xl text-gradient-gold font-bold">15%</span>
+                            <span class="text-charcoal-700 text-sm">от дохода</span>
+                        </div>
+                    </div>
+
+                    <p class="text-charcoal-700 text-sm mb-6 font-light">Для собственников, которые хотят делегировать только бронирование</p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Размещение на 3 площадках</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Управление календарём</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Общение с гостями</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Ежемесячный отчёт</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-700/50">
+                            <i class="fa-solid fa-xmark text-charcoal-700/30"></i>
+                            <span>Клининг не включён</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-700/50">
+                            <i class="fa-solid fa-xmark text-charcoal-700/30"></i>
+                            <span>Заселение не включено</span>
+                        </li>
+                    </ul>
+
+                    <a href="#signup" class="btn-outline font-semibold py-3 px-6 rounded-full text-sm block text-center">
+                        Выбрать тариф
+                    </a>
+                </div>
+
+                <!-- Price 2 - Featured -->
+                <div class="pricing-card featured rounded-3xl p-8 relative reveal stagger-1">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                        Популярный
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-gold-300 text-xs uppercase tracking-widest font-bold mb-2">Оптимальный</div>
+                        <h3 class="font-display text-3xl text-cream-100 mb-2">Комфорт</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display text-5xl text-gradient-gold font-bold">25%</span>
+                            <span class="text-cream-200 text-sm">от дохода</span>
+                        </div>
+                    </div>
+
+                    <p class="text-cream-200 text-sm mb-6 font-light">Полный цикл управления. Вы просто получаете выплаты на карту</p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Всё из тарифа «Старт»</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Размещение на 7+ площадках</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Проф. клининг после каждого гостя</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Заселение гостей 24/7</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Фото- и видеосъёмка</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-cream-100">
+                            <i class="fa-solid fa-check text-gold-500"></i>
+                            <span>Техобслуживание объекта</span>
+                        </li>
+                    </ul>
+
+                    <a href="#signup" class="btn-gold font-semibold py-3 px-6 rounded-full text-sm block text-center">
+                        Выбрать тариф
+                    </a>
+                </div>
+
+                <!-- Price 3 -->
+                <div class="pricing-card bg-white border border-forest-100 rounded-3xl p-8 reveal stagger-2">
+                    <div class="mb-6">
+                        <div class="text-gold-600 text-xs uppercase tracking-widest font-bold mb-2">Премиум</div>
+                        <h3 class="font-display text-3xl text-forest-900 mb-2">VIP</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display text-5xl text-gradient-gold font-bold">35%</span>
+                            <span class="text-charcoal-700 text-sm">от дохода</span>
+                        </div>
+                    </div>
+
+                    <p class="text-charcoal-700 text-sm mb-6 font-light">Для владельцев премиум-объектов. Максимум сервиса и дохода</p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Всё из тарифа «Комфорт»</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Персональный менеджер</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Консьерж-сервис для гостей</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Хоум-стейджинг и декор</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Премиум-фотосессия + 3D-тур</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-charcoal-800">
+                            <i class="fa-solid fa-check text-forest-500"></i>
+                            <span>Страхование объекта</span>
+                        </li>
+                    </ul>
+
+                    <a href="#signup" class="btn-outline font-semibold py-3 px-6 rounded-full text-sm block text-center">
+                        Выбрать тариф
+                    </a>
+                </div>
+            </div>
+
+            <!-- Calculator -->
+            <div class="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm max-w-4xl mx-auto reveal">
+                <div class="text-center mb-8">
+                    <div class="badge mb-4 mx-auto">Калькулятор дохода</div>
+                    <h3 class="font-display text-3xl text-forest-900">Сколько вы можете зарабатывать?</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-charcoal-700 text-sm font-semibold mb-2">Тип объекта</label>
+                            <select id="calcType" class="w-full bg-cream-50 border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3 rounded-xl outline-none transition-colors" onchange="calculateIncome()">
+                                <option value="3000">Студия (до 3 000 ₽/сутки)</option>
+                                <option value="4500" selected>1-комнатная (3 000-5 000 ₽)</option>
+                                <option value="6500">2-комнатная (5 000-8 000 ₽)</option>
+                                <option value="9000">Премиум (от 8 000 ₽)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-charcoal-700 text-sm font-semibold mb-2">Загрузка в месяц</label>
+                            <input type="range" id="calcLoad" min="50" max="100" value="80" step="5" class="w-full accent-forest-500" oninput="calculateIncome()">
+                            <div class="flex justify-between text-xs text-charcoal-700 mt-1">
+                                <span>50%</span>
+                                <span id="loadValue" class="font-bold text-forest-500">80%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-charcoal-700 text-sm font-semibold mb-2">Тариф</label>
+                            <select id="calcTariff" class="w-full bg-cream-50 border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3 rounded-xl outline-none transition-colors" onchange="calculateIncome()">
+                                <option value="15">Старт (15%)</option>
+                                <option value="25" selected>Комфорт (25%)</option>
+                                <option value="35">VIP (35%)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-forest-900 to-forest-950 rounded-3xl p-8 text-white flex flex-col justify-center">
+                        <div class="text-cream-200 text-sm uppercase tracking-widest mb-2">Ваш доход в месяц</div>
+                        <div class="font-display text-5xl text-gradient-gold font-bold mb-4" id="incomeResult">108 000 ₽</div>
+                        <div class="text-cream-200 text-sm mb-6">После вычета нашей комиссии</div>
+                        
+                        <div class="space-y-3 pt-6 border-t border-white/10">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-cream-200">Грязный доход</span>
+                                <span class="font-bold" id="grossIncome">144 000 ₽</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-cream-200">Наша комиссия</span>
+                                <span class="font-bold text-gold-300" id="commission">36 000 ₽</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-cream-200">Загрузка</span>
+                                <span class="font-bold" id="loadDisplay">24 ночи</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="py-24 bg-cream-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">Как мы работаем</div>
+                <h2 class="font-display text-4xl md:text-6xl text-forest-900 mb-4 tracking-tight">4 шага <span class="italic text-gradient-gold">к пассивному доходу</span></h2>
+                <p class="text-charcoal-700 text-lg max-w-2xl mx-auto font-light">Прозрачный процесс от первой встречи до стабильных выплат на вашу карту</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="relative reveal">
+                    <div class="bg-white rounded-3xl p-8 border border-forest-100 h-full hover-lift">
+                        <div class="font-display text-6xl text-gradient-gold font-bold mb-4 opacity-30">01</div>
+                        <div class="w-14 h-14 bg-forest-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-comments text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-forest-900 mb-3">Консультация</h3>
+                        <p class="text-charcoal-700 text-sm font-light leading-relaxed">Бесплатно оценим ваш объект, рассчитаем потенциальный доход и предложим оптимальный тариф.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal stagger-1">
+                    <div class="bg-white rounded-3xl p-8 border border-forest-100 h-full hover-lift">
+                        <div class="font-display text-6xl text-gradient-gold font-bold mb-4 opacity-30">02</div>
+                        <div class="w-14 h-14 bg-gold-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-file-signature text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-forest-900 mb-3">Договор</h3>
+                        <p class="text-charcoal-700 text-sm font-light leading-relaxed">Подписываем официальный договор управления. Все условия прозрачны и зафиксированы.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal stagger-2">
+                    <div class="bg-white rounded-3xl p-8 border border-forest-100 h-full hover-lift">
+                        <div class="font-display text-6xl text-gradient-gold font-bold mb-4 opacity-30">03</div>
+                        <div class="w-14 h-14 bg-forest-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-camera text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-forest-900 mb-3">Подготовка</h3>
+                        <p class="text-charcoal-700 text-sm font-light leading-relaxed">Делаем проф. фотосессию, создаём объявления, настраиваем ценообразование. Запускаем за 3 дня.</p>
+                    </div>
+                </div>
+
+                <div class="relative reveal stagger-3">
+                    <div class="bg-white rounded-3xl p-8 border border-forest-100 h-full hover-lift">
+                        <div class="font-display text-6xl text-gradient-gold font-bold mb-4 opacity-30">04</div>
+                        <div class="w-14 h-14 bg-gold-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-money-bill-wave text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-forest-900 mb-3">Выплаты</h3>
+                        <p class="text-charcoal-700 text-sm font-light leading-relaxed">Ежемесячные выплаты на вашу карту. Прозрачные отчёты в личном кабинете 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-forest-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto bg-white/10 text-gold-300 border-gold-500/30">Отзывы</div>
+                <h2 class="font-display text-4xl md:text-6xl text-cream-100 mb-4 tracking-tight">Нам <span class="italic text-gradient-gold">доверяют</span></h2>
+                <p class="text-cream-200 text-lg max-w-2xl mx-auto font-light">Более 80 собственников уже увеличили свой доход с нашей помощью</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 reveal">
+                    <div class="quote-mark">"</div>
+                    <div class="star-rating flex gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cream-100 mb-6 leading-relaxed font-light">"Передала свою 2-комнатную в Пятигорске 8 месяцев назад. Доход вырос в 2.5 раза по сравнению с тем, когда сдавала сама. Отчёты приходят чётко, гости довольны."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                        <div class="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-700 rounded-full flex items-center justify-center text-white font-bold">ЕМ</div>
+                        <div>
+                            <div class="font-semibold text-cream-100">Елена Маркова</div>
+                            <div class="text-cream-200 text-xs">Собственник, Пятигорск</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 reveal stagger-1">
+                    <div class="quote-mark">"</div>
+                    <div class="star-rating flex gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cream-100 mb-6 leading-relaxed font-light">"Живу в Москве, квартира в Железноводске. Раньше мучился с гостями, клинингом, ремонтом. Теперь просто получаю деньги на карту. Ребята — профессионалы!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                        <div class="w-12 h-12 bg-gradient-to-br from-forest-500 to-forest-700 rounded-full flex items-center justify-center text-white font-bold">АК</div>
+                        <div>
+                            <div class="font-semibold text-cream-100">Андрей Козлов</div>
+                            <div class="text-cream-200 text-xs">Собственник, Железноводск</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 reveal stagger-2">
+                    <div class="quote-mark">"</div>
+                    <div class="star-rating flex gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cream-100 mb-6 leading-relaxed font-light">"Заказываю клининг отдельно для своей квартиры — качество на уровне отеля 5*. Приезжают вовремя, убирают идеально. Особенно радует, что используют безопасную химию."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                        <div class="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-700 rounded-full flex items-center justify-center text-white font-bold">МС</div>
+                        <div>
+                            <div class="font-semibold text-cream-100">Марина Соколова</div>
+                            <div class="text-cream-200 text-xs">Клиент клининга, Кисловодск</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geography -->
+    <section class="py-24 bg-cream-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">География</div>
+                <h2 class="font-display text-4xl md:text-6xl text-forest-900 mb-4 tracking-tight">Работаем на <span class="italic text-gradient-gold">всём КМВ</span></h2>
+                <p class="text-charcoal-700 text-lg max-w-2xl mx-auto font-light">Наши объекты и бригады клининга работают во всех городах Кавказских Минеральных Вод</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 reveal">
+                <div class="bg-white rounded-2xl p-6 text-center border border-forest-100 hover-lift">
+                    <div class="w-14 h-14 bg-forest-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-location-dot text-forest-500 text-xl"></i>
+                    </div>
+                    <div class="font-display text-xl text-forest-900 font-semibold mb-1">Пятигорск</div>
+                    <div class="text-charcoal-700 text-xs">38 объектов</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-forest-100 hover-lift">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-location-dot text-gold-600 text-xl"></i>
+                    </div>
+                    <div class="font-display text-xl text-forest-900 font-semibold mb-1">Железноводск</div>
+                    <div class="text-charcoal-700 text-xs">24 объекта</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-forest-100 hover-lift">
+                    <div class="w-14 h-14 bg-forest-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-location-dot text-forest-500 text-xl"></i>
+                    </div>
+                    <div class="font-display text-xl text-forest-900 font-semibold mb-1">Кисловодск</div>
+                    <div class="text-charcoal-700 text-xs">19 объектов</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-forest-100 hover-lift">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-location-dot text-gold-600 text-xl"></i>
+                    </div>
+                    <div class="font-display text-xl text-forest-900 font-semibold mb-1">Ессентуки</div>
+                    <div class="text-charcoal-700 text-xs">6 объектов</div>
+                </div>
+            </div>
+
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl reveal">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174604.5579431448!2d42.85354875!3d44.0453455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x404d43d953c6c7b1%3A0x6334e7c30a8b9b0!2z0J3QvtCy0YHQutC-0LLRgdC60LDRjyDQvtCx0Lsu!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru" 
+                        width="100%" height="450" 
+                        style="border:0; filter: grayscale(30%) contrast(1.1);" 
+                        allowfullscreen="" loading="lazy">
+                </iframe>
+                <div class="absolute top-6 left-6 bg-white rounded-2xl shadow-lg px-5 py-4 flex items-center gap-3">
+                    <div class="w-12 h-12 bg-forest-900 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-location-dot text-gold-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-display text-forest-900 font-bold">RESIDENCE КМВ</div>
+                        <div class="text-charcoal-700 text-xs">87 объектов в управлении</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-cream-50 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto">FAQ</div>
+                <h2 class="font-display text-4xl md:text-5xl text-forest-900 mb-4 tracking-tight">Частые <span class="italic text-gradient-gold">вопросы</span></h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Какая комиссия и что в неё входит?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        Комиссия зависит от тарифа: 15% (Старт), 25% (Комфорт) или 35% (VIP). Комиссия берётся только с фактического дохода — если квартира пустует, вы ничего не платите. В тариф «Комфорт» и «VIP» уже включены клининг, заселение, фото и техобслуживание.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal stagger-1">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Как быстро вы запускаете объект?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        От подписания договора до первых бронирований проходит 3-7 дней. Мы делаем фотосессию, создаём объявления на 7+ площадках, настраиваем динамическое ценообразование. Если нужна подготовка объекта (ремонт, доукомплектация) — сроки обсуждаются индивидуально.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal stagger-2">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Что если гость испортит имущество?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        Все наши объекты застрахованы. При ущербе мы фиксируем повреждения, взыскиваем депозит с гостя и подаём заявку в страховую. Компенсация выплачивается в течение 48 часов. На тарифе VIP страхование включено, на других — за доп. плату.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal stagger-3">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Когда и как я получаю выплаты?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        Выплаты производятся ежемесячно, до 5 числа следующего месяца, на вашу банковскую карту. К выплате прилагается детальный отчёт: даты заездов, суммы, расходы на клининг, наша комиссия. Всё прозрачно и в личном кабинете 24/7.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Можно ли заказать только клининг?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        Да, мы предоставляем клининг как отдельную услугу для всех жителей КМВ. Экспресс-уборка от 1 500 ₽, генеральная — от 3 500 ₽, химчистка мебели — от 2 000 ₽. Работаем 7 дней в неделю, выезд в день обращения.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden border border-forest-100 reveal stagger-1">
+                    <button class="w-full flex items-center justify-between text-left p-6" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-forest-900 text-lg pr-4">Можно ли расторгнуть договор?</span>
+                        <i class="fa-solid fa-plus text-forest-500 transition-transform"></i>
+                    </button>
+                    <div class="faq-content px-6 pb-6 text-charcoal-700 leading-relaxed">
+                        Да, договор можно расторгнуть в любое время с уведомлением за 30 дней. Мы не привязываем собственников долгосрочными обязательствами — нас удерживает только качество сервиса. 95% клиентов продлевают договор год за годом.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signup" class="py-24 bg-forest-900 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-forest-500/30 rounded-full blur-3xl"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <div class="ornament-divider mb-6">
+                    <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                </div>
+                <div class="badge mb-4 mx-auto bg-white/10 text-gold-300 border-gold-500/30">
+                    <i class="fa-solid fa-key"></i>
+                    Бесплатная консультация
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl text-cream-100 mb-4 tracking-tight">Оцените свой объект <span class="italic text-gradient-gold">бесплатно</span></h2>
+                <p class="text-cream-200 text-lg max-w-2xl mx-auto font-light">Оставьте заявку — мы свяжемся в течение 15 минут, рассчитаем потенциальный доход и предложим оптимальные условия</p>
+            </div>
+
+            <form class="bg-cream-100 rounded-3xl p-8 md:p-12 reveal" onsubmit="handleSubmit(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-charcoal-700 text-xs uppercase tracking-wider font-semibold mb-2">Имя</label>
+                        <input type="text" required class="w-full bg-white border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3.5 rounded-xl outline-none transition-colors" placeholder="Ваше имя">
+                    </div>
+                    <div>
+                        <label class="block text-charcoal-700 text-xs uppercase tracking-wider font-semibold mb-2">Телефон</label>
+                        <input type="tel" required class="w-full bg-white border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3.5 rounded-xl outline-none transition-colors" placeholder="+7 (___) ___-__-__">
+                    </div>
+                    <div>
+                        <label class="block text-charcoal-700 text-xs uppercase tracking-wider font-semibold mb-2">Тип услуги</label>
+                        <select class="w-full bg-white border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3.5 rounded-xl outline-none transition-colors">
+                            <option>Управление квартирой</option>
+                            <option>Клининг (разовый)</option>
+                            <option>Клининг (регулярный)</option>
+                            <option>Забронировать квартиру</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-charcoal-700 text-xs uppercase tracking-wider font-semibold mb-2">Город</label>
+                        <select class="w-full bg-white border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3.5 rounded-xl outline-none transition-colors">
+                            <option>Пятигорск</option>
+                            <option>Железноводск</option>
+                            <option>Кисловодск</option>
+                            <option>Ессентуки</option>
+                            <option>Минеральные Воды</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-charcoal-700 text-xs uppercase tracking-wider font-semibold mb-2">Комментарий</label>
+                    <textarea rows="3" class="w-full bg-white border border-forest-100 focus:border-forest-500 text-charcoal-800 px-4 py-3.5 rounded-xl outline-none transition-colors resize-none" placeholder="Расскажите о вашем объекте или задайте вопрос"></textarea>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-forest-100">
+                    <label class="flex items-start gap-3 text-charcoal-700 text-sm cursor-pointer">
+                        <input type="checkbox" required class="mt-1 accent-forest-500">
+                        <span>Согласен с политикой обработки персональных данных</span>
+                    </label>
+                    <button type="submit" class="btn-primary font-semibold py-4 px-10 rounded-full flex items-center gap-3">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Получить консультацию</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contacts -->
+    <section id="contacts" class="py-24 bg-cream-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="reveal">
+                    <div class="ornament-divider mb-6 justify-start">
+                        <i class="fa-solid fa-diamond text-gold-500 text-xs"></i>
+                    </div>
+                    <div class="badge mb-4">Контакты</div>
+                    <h2 class="font-display text-4xl md:text-5xl text-forest-900 mb-6 tracking-tight">Свяжитесь <span class="italic text-gradient-gold">с нами</span></h2>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-forest-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-location-dot text-forest-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-forest-900 text-lg mb-1">Офис в Пятигорске</div>
+                                <div class="text-charcoal-700">ул. Ермолова, 12, офис 305</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-location-dot text-gold-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-forest-900 text-lg mb-1">Офис в Железноводске</div>
+                                <div class="text-charcoal-700">ул. Ленина, 48, офис 12</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-forest-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-phone text-forest-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-forest-900 text-lg mb-1">Телефон</div>
+                                <a href="tel:+79991234567" class="text-charcoal-700 hover:text-forest-500 transition-colors text-lg">+7 (999) 123-45-67</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-gold-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-forest-900 text-lg mb-1">Email</div>
+                                <a href="mailto:info@residence-kmv.ru" class="text-charcoal-700 hover:text-forest-500 transition-colors">info@residence-kmv.ru</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-forest-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-clock text-forest-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-forest-900 text-lg mb-1">Режим работы</div>
+                                <div class="text-charcoal-700">Ежедневно: 9:00 – 21:00<br>Заселение гостей: 24/7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mt-8">
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-forest-900 hover:text-cream-100 text-forest-900 rounded-full flex items-center justify-center transition-all border border-forest-100">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-forest-900 hover:text-cream-100 text-forest-900 rounded-full flex items-center justify-center transition-all border border-forest-100">
+                            <i class="fa-brands fa-telegram text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-forest-900 hover:text-cream-100 text-forest-900 rounded-full flex items-center justify-center transition-all border border-forest-100">
+                            <i class="fa-brands fa-vk text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-forest-900 hover:text-cream-100 text-forest-900 rounded-full flex items-center justify-center transition-all border border-forest-100">
+                            <i class="fa-brands fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal stagger-2">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[550px]">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.5!2d43.05!3d44.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z0J3QtdC70YzQvdC-0LLRgdC60LjQuSDQktC-0LTRg9C70LjRhtC-0LLRgdC60LjQuQ!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru" 
+                                width="100%" height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" loading="lazy">
+                        </iframe>
+                        <div class="absolute top-4 left-4 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-forest-900 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-key text-gold-500"></i>
+                            </div>
+                            <div>
+                                <div class="font-display text-forest-900 font-bold">RESIDENCE КМВ</div>
+                                <div class="text-charcoal-700 text-xs">Управление объектами</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest-950 text-cream-100 pt-16 pb-24 md:pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <div class="w-11 h-11 bg-gold-500 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-key text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-display text-2xl tracking-wide">RESIDENCE</span>
+                            <div class="text-[10px] text-gold-300 tracking-[0.3em] uppercase">КМВ • Управление</div>
+                        </div>
+                    </a>
+                    <p class="text-cream-200 max-w-sm mb-6 leading-relaxed font-light">
+                        Профессиональное управление квартирами для посуточной аренды и клининг на Кавказских Минеральных Водах. С 2020 года.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 rounded-full flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-whatsapp text-cream-100"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 rounded-full flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-telegram text-cream-100"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 rounded-full flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-vk text-cream-100"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/5 hover:bg-gold-500 rounded-full flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-instagram text-cream-100"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-display text-lg mb-6">Услуги</h4>
+                    <ul class="space-y-3 text-sm text-cream-200">
+                        <li><a href="#services" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[8px] text-gold-500"></i> Управление объектами</a></li>
+                        <li><a href="#apartments" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[8px] text-gold-500"></i> Посуточная аренда</a></li>
+                        <li><a href="#cleaning" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[8px] text-gold-500"></i> Клининг</a></li>
+                        <li><a href="#pricing" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[8px] text-gold-500"></i> Тарифы</a></li>
+                        <li><a href="#signup" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[8px] text-gold-500"></i> Сдать в управление</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-display text-lg mb-6">Контакты</h4>
+                    <ul class="space-y-4 text-sm text-cream-200">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-gold-500"></i>
+                            <span>Пятигорск, Ермолова, 12<br>Железноводск, Ленина, 48</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone mt-1 text-gold-500"></i>
+                            <a href="tel:+79991234567" class="hover:text-gold-500 transition-colors">+7 (999) 123-45-67</a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope mt-1 text-gold-500"></i>
+                            <a href="mailto:info@residence-kmv.ru" class="hover:text-gold-500 transition-colors">info@residence-kmv.ru</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-cream-200 text-xs">© 2026 RESIDENCE КМВ. Все права защищены.</p>
+                <p class="text-cream-200 text-xs">С заботой о вашем объекте и гостях</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Bar -->
+    <div class="fixed bottom-0 left-0 w-full bg-cream-100 border-t border-forest-100 p-3 md:hidden z-50 mobile-bottom-bar">
+        <div class="flex gap-2">
+            <a href="tel:+79991234567" class="flex-1 bg-white border border-forest-100 text-forest-900 font-semibold py-3 text-xs tracking-wider uppercase flex items-center justify-center gap-2 rounded-full">
+                <i class="fa-solid fa-phone text-forest-500"></i> Звонок
+            </a>
+            <a href="#signup" class="flex-[2] btn-primary font-semibold py-3 text-xs tracking-wider uppercase flex items-center justify-center gap-2 rounded-full">
+                <i class="fa-solid fa-key"></i> Оставить заявку
+            </a>
+            <a href="https://wa.me/79991234567" class="flex-1 bg-white border border-forest-100 text-forest-900 font-semibold py-3 text-xs tracking-wider uppercase flex items-center justify-center gap-2 rounded-full">
+                <i class="fa-brands fa-whatsapp text-green-500"></i> MAX
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Filter apartments
+        function filterApt(city, btnElement) {
+            document.querySelectorAll('.apartment-card').forEach(card => {
+                if (city === 'all' || card.dataset.city === city) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.classList.remove('active', 'bg-forest-900', 'text-white');
+                tab.classList.add('bg-white', 'text-charcoal-800');
+            });
+            btnElement.classList.add('active', 'bg-forest-900', 'text-white');
+            btnElement.classList.remove('bg-white', 'text-charcoal-800');
+        }
+
+        // Income calculator
+        function calculateIncome() {
+            const type = parseInt(document.getElementById('calcType').value);
+            const load = parseInt(document.getElementById('calcLoad').value);
+            const tariff = parseInt(document.getElementById('calcTariff').value);
+            
+            const nights = Math.round(30 * load / 100);
+            const gross = type * nights;
+            const commission = Math.round(gross * tariff / 100);
+            const income = gross - commission;
+            
+            document.getElementById('incomeResult').textContent = income.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('grossIncome').textContent = gross.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('commission').textContent = commission.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('loadDisplay').textContent = nights + ' ноч' + (nights % 10 === 1 && nights !== 11 ? 'ь' : nights % 10 >= 2 && nights % 10 <= 4 && (nights < 10 || nights > 20) ? 'и' : 'ей');
+            document.getElementById('loadValue').textContent = load + '%';
+        }
+        calculateIncome();
+
+        // FAQ toggle
+        function toggleFAQ(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            content.classList.toggle('open');
+            if (content.classList.contains('open')) {
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Form submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Заявка отправлена!';
+            btn.classList.add('bg-forest-500');
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('bg-forest-500');
+                event.target.reset();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
